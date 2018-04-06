@@ -1,0 +1,55 @@
+
+The user interface is divided into Construction Mode, used to set up the initial conditions of the graph, and Inference Mode, used for creating graphs that represent statements that are logical consequences of graphs created in Construction Mode. Mockup screenshots of various features are included. Most of the interaction is accomplished using the buttons on the sidebar (which will have icons in the final version), as follows:
+
+ - Construction Mode
+   - Select Tool
+     - Click on an atom to select it.
+     - Click inside a cut to select it.
+     - Drag selections to move them.
+     - Press the delete key to delete the selection.
+     - Click inside a cut and drag outwards to expand it.
+     - Click outside a cut and drag inwards to contract it.
+   - Insert Variable
+     - Click any empty space; a context menu will appear.
+     - The menu contains all atomic variables in the current graph, as well as an "Add new..." option.
+   - Insert Cut
+     - Click to create a cut of default size.
+     - Click and drag along the diagonal to create a cut of specified size.
+   - Delete Tool
+     - Click an atom to delete it.
+     - Click a cut to remove it, placing everything within it at a higher level.
+     - Right-click a cut to remove it and all its contents.
+ - Proof Mode
+   - Select Tool
+     - Same as in Construction Mode.
+   - Double Cut
+     - Click a cut that contains nothing but another cut to remove both.
+     - Insert double cut? - TODO
+   - Iteration
+     - Click to select a cut or atom.
+       - This will highlight in green all spaces that the selected subgraph can be iterated into.
+       - This will highlight in red all subgraphs identical to the selection that can be deiterated.
+     - Then, click any green space to insert a copy of the selected subgraph at that location.
+     - Or click any red subgraph to remove it.
+   - Insertion
+     - Highlights all odd levels?
+     - Click any space on an odd level.
+       - This will make a popup window in construction mode.
+       - Construct any graph in the popup.
+     - The newly-constructed graph will be inserted at the specified location.
+   - Erasure
+     - Highlights all even levels?
+     - Click any atom to delete it.
+     - Click any point on an odd level to delete the enclosing cut and everything inside it.
+   - Undo
+     - Undoes the most recent proof mode action.
+
+Other features may be added in the future, such as loading and saving files, copy-pasting subgraphs, and inputting more complex formulae. This would be done from a menu at the top of the window, which would also have a control to switch between Construction Mode and Proof Mode.
+
+Explanations of the six screenshot mockups:
+ - ConstructMode.png shows the tool in construct mode.
+ - ProofMode.png shows the tool in proof mode.
+ - AddVariable.png shows the menu that appears when 
+ - Iteration.png shows the Iteration tool selected in proof mode. The user has selected a cut containing the statement Q (shown outlined in blue). All regions that it could be iterated into are shaded in green.
+ - Deiteration.png shows the Deiteration tool selected in proof mode. As in Iteration.png, the user has selected a cut containing the statement Q. An identical subgraph that could be deiterated is shown outlined in red.
+ - Insertion.png shows the Insertion tool selected in proof mode. A construction mode popup has appeared, allowing the user to construct an arbitrary subgraph to insert.
