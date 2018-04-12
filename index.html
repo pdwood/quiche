@@ -104,8 +104,8 @@
 			
 			function dragstarted(d) {
 			  //d3.select(this).raise().classed("active", true);
-				d3.select(this).attr('xoffset', d.event.x - d.data.x)
-				d3.select(this).attr('yoffset', d.event.y - d.data.y)
+				d3.select(this).attr('xoffset', d3.event.x - d.data.x)
+				d3.select(this).attr('yoffset', d3.event.y - d.data.y)
 			}
 
 			function dragged(d) {
