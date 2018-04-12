@@ -103,22 +103,20 @@
 			}
 			
 			function dragstarted(d) {
-			  //d3.select(this).raise().classed("active", true);
-				d3.select(this).attr('xoffset', d.event.x - d.data.x)
-				d3.select(this).attr('yoffset', d.event.y - d.data.y)
+			  d3.select(this).raise().classed("active", true);
 			}
 
 			function dragged(d) {
-				console.log(d3.select(this))
-				d.data.x = d3.event.x - d3.select(this).attr('xoffset')
-				d.data.y = d3.event.y - d3.select(this).attr('yoffset')
+				d.data.x = d3.event.x-outpad
+				d.data.y = d3.event.y-outpad
 //				datum.data["asdf"] = "asdf"
 				//console.log("becomes")
-				//console.log(d)
+				console.log(d)
 				update()
 			}
 
 			function dragended(d) {
+			  d3.select(this).classed("active", false);
 				//update()
 			}
 
