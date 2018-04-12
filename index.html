@@ -109,9 +109,15 @@
 			}
 
 			function dragged(d) {
-				console.log(d3.select(this))
-				d.data.x = d3.event.x - d3.select(this).attr('xoffset')
-				d.data.y = d3.event.y - d3.select(this).attr('yoffset')
+//				console.log(d3.select(this))
+
+				var deltax = d3.event.x - d3.select(this).attr('xoffset') - d.data.x
+				var deltay = d3.event.y - d3.select(this).attr('yoffset') - d.data.y
+				
+				//d.data.x += deltax
+				//d.data.y += deltay
+
+				d.descendants().forEach( function(d1){ d1.data.x += deltax; d1.data.y += deltay } )
 //				datum.data["asdf"] = "asdf"
 				//console.log("becomes")
 				//console.log(d)
