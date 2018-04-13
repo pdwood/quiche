@@ -1,0 +1,69 @@
+.sidebar {
+	height: 100%;
+	width: 250px;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: auto;
+	transition: 0.5s;
+	padding-top: 60px;
+	display: block;
+}
+
+.sidebar .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+.sidebar a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidebar a:hover {
+	color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+
+.sidebar .button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 8px;
+}
+
+.sidebar .button2 {background-color: #008CBA;} /* Blue */
+.sidebar .button3 {background-color: #f44336;} /* Red */ 
+.sidebar .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+.sidebar .button5 {background-color: #555555;} /* Black */
+
+
+.canvas {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
