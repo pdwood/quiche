@@ -31,11 +31,11 @@ var outpad = 10
 
 function getw(d) {
 	if(!d.children) return d.data.value.length * 11
-	return outpad + d.children.reduce( (a,b) => Math.max(a, getx(b) + getw(b) - d.data.x) , 0)
+	return outpad + d.children.reduce( (a,b) => Math.max(a, getx(b) + getw(b) - d.data.x) , 0) + (d.data.x - getx(d))
 }
 function geth(d) {
 	if(!d.children) return 17
-	return outpad + d.children.reduce( (a,b) => Math.max(a, gety(b) + geth(b) - d.data.y) , 0)
+	return outpad + d.children.reduce( (a,b) => Math.max(a, gety(b) + geth(b) - d.data.y) , 0) + (d.data.y - gety(d))
 }
 function getx(d){
 	if(!d.children) return d.data.x
