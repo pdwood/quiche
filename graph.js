@@ -30,20 +30,12 @@ var outpad = 10
 //var text
 
 function getw(d) {
-	if(!d.children) return inpad
-	return outpad + d.children.reduce( (a,b) => Math.max(a,b.data.x + getw(b) - d.data.x) , 0)
+	if(!d.children) return d.data.value.length * 11
+	return outpad + d.children.reduce( (a,b) => Math.max(a, getx(b) + getw(b) - d.data.x) , 0)
 }
 function geth(d) {
-	if(!d.children) return inpad
-	return outpad + d.children.reduce( (a,b) => Math.max(a,b.data.y + geth(b) - d.data.y) , 0)
-}
-function getw_minus(d){
-	if(!d.children) return 0
-	return d.children.reduce( (a,b) => Math.max(a, b.data.x + getw_minus(b) - d.data.x - outpad) , 0)				
-}
-function geth_minus(d){
-	if(!d.children) return 0
-	return d.children.reduce( (a,b) => Math.min(a, b.data.y + geth_minus(b) - d.data.y - outpad) , 0)				
+	if(!d.children) return 17
+	return outpad + d.children.reduce( (a,b) => Math.max(a, gety(b) + geth(b) - d.data.y) , 0)
 }
 function getx(d){
 	if(!d.children) return d.data.x
@@ -60,7 +52,21 @@ function update () {
 	svg.selectAll("rect")
 		.data(root.descendants().filter( (d) => !d.data.value ))
 		//
-		.enter().append("g").append('rect')
+		.enter().append('rect')
+
+	svg.selectAll("text")
+		.data(root.descendants().filter( (d) => !!d.data.value ))
+		//
+		.enter().append('text')
+
+	svg.selectAll("text")
+		.attr('x', getx)
+		.attr('y', gety)
+		.html((d) => d.data.value)
+		.call(d3.drag()
+			.on("start", dragstarted)
+			.on("drag", dragged)
+			.on("end", dragended));
 
 	svg.selectAll("rect")
 		.attr('x', getx)
@@ -76,16 +82,17 @@ function update () {
 			.on("drag", dragged)
 			.on("end", dragended));
 	
-	svg.selectAll("g")
-		.data(root.descendants().filter( (d) => !!d.data.value ))
-		.enter().append("g").append('text')
-		.attr('x',function(d){return d.data.x} )
-		.attr('y',function(d){return d.data.y} )
-		//.attr('width', getw)
-		//.attr('height', geth)
-		//.style('stroke','#000000')
-		//.style('fill','#ffffff')
-		.attr('innerHTML', (d) => d.data.value)
+
+	//svg.selectAll("g")
+	//	.data(root.descendants().filter( (d) => !!d.data.value ))
+	//	.enter().append("g").append('text')
+	//	.attr('x',function(d){return d.data.x} )
+	//	.attr('y',function(d){return d.data.y} )
+	//	//.attr('width', getw)
+	//	//.attr('height', geth)
+	//	//.style('stroke','#000000')
+	//	//.style('fill','#ffffff')
+	//	.attr('innerHTML', (d) => d.data.value)
 }
 
 function dragstarted(d) {

@@ -67,3 +67,7 @@
 	height: 100%;
 	position: absolute;
 }
+
+.canvas text {
+	cursor: pointer;
+}
