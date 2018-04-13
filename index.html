@@ -5,14 +5,15 @@
             .sidebar {
                 height: 100%;
                 width: 250px;
-                position: fixed;
-                z-index: 1;
+                position: absolute;
+                z-index: 2;
                 top: 0;
                 left: 0;
                 background-color: #111;
-                overflow-x: hidden;
+                overflow-x: auto;
                 transition: 0.5s;
                 padding-top: 60px;
+                display: block;
             }
 
             .sidebar .closebtn {
@@ -68,6 +69,7 @@
             .canvas {
                 width: 100%;
                 height: 100%;
+                position: absolute;
             }
         </style>
 	</head>
@@ -81,7 +83,7 @@
             <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Gray</button>
             <button id=black class="button button5" onclick="buttonClick('#555555','white')">Black</button>
 		</div>
-        <span style="font-size:30px;cursor:pointer" onclick="openBar()">&#9776; open</span>
+        <span style="font-size:30px;cursor:pointer;position:absolute;z-index:1;" onclick="openBar()">&#9776;</span>
 		<svg class=canvas></svg>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script>
