@@ -72,11 +72,11 @@
             <button id=green class="button" onclick="buttonClick('#4CAF50','white')">Green</button>
             <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Blue</button>
             <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Red</button>
-            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Gray</button>
+            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">White</button>
             <button id=black class="button button5" onclick="buttonClick('#555555','white')">Black</button>
 		</div>
         <span style="font-size:30px;cursor:pointer" onclick="openBar()">&#9776; open</span>
-		<svg width="1000" height="1000"></svg>
+		<svg width="100%" height="100%"></svg>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script>
             ////////////////Side Menu Stuff///////////////////
@@ -140,13 +140,21 @@
 				if(!d.children) return inpad
 				return outpad + d.children.reduce( (a,b) => Math.max(a,b.data.y + geth(b) - d.data.y) , 0)
 			}
-			function getw_minus(d){ return 0
-//				if(!d.children) return 0
-//				return outpad + d.children.reduce( (a,b) => Math.min(a,b.data.x + getw_minus(b)) , width)				
+			function getw_minus(d){
+				if(!d.children) return 0
+				return d.children.reduce( (a,b) => Math.max(a, b.data.x + getw_minus(b) - d.data.x - outpad) , 0)				
 			}
-			function geth_minus(d){ return 0
-//				if(!d.children) return 0
-//				return outpad + d.children.reduce( (a,b) => Math.min(a,b.data.y + getw_minus(b)) , height)				
+			function geth_minus(d){
+				if(!d.children) return 0
+				return d.children.reduce( (a,b) => Math.min(a, b.data.y + geth_minus(b) - d.data.y - outpad) , 0)				
+			}
+			function getx(d){
+				if(!d.children) return d.data.x
+				return d.children.reduce( (a,b) => Math.min(a, getx(b) - outpad) , d.data.x)
+			}
+			function gety(d){
+				if(!d.children) return d.data.y
+				return d.children.reduce( (a,b) => Math.min(a, gety(b) - outpad) , d.data.y)
 			}
 
 			var root = d3.hierarchy(data)
@@ -158,8 +166,8 @@
 					.enter().append("g").append('rect')
 	
 				svg.selectAll("rect")
-					.attr('x',function(d){return d.data.x - getw_minus(d)} )
-					.attr('y',function(d){return d.data.y - geth_minus(d)} )
+					.attr('x', getx)
+					.attr('y', gety)
 					.attr('width', getw)
 					.attr('height', geth)
 					.attr('rx',32)
