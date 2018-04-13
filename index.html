@@ -63,6 +63,12 @@
             .sidebar .button3 {background-color: #f44336;} /* Red */ 
             .sidebar .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
             .sidebar .button5 {background-color: #555555;} /* Black */
+
+
+            .canvas {
+                width: 100%;
+                height: 100%;
+            }
         </style>
 	</head>
 	<body>
@@ -76,7 +82,7 @@
             <button id=black class="button button5" onclick="buttonClick('#555555','white')">Black</button>
 		</div>
         <span style="font-size:30px;cursor:pointer" onclick="openBar()">&#9776; open</span>
-		<svg width="1000" height="1000"></svg>
+		<svg class=canvas></svg>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script>
             ////////////////Side Menu Stuff///////////////////
