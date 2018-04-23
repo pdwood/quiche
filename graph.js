@@ -1,7 +1,13 @@
 //Circles: https://bl.ocks.org/mbostock/22994cc97fefaeede0d861e6815a847e
 //Drag to resize: http://bl.ocks.org/mccannf/1629464
 
-var mode = "addcut"
+var currentVars = ["P","Q"]
+var selectedForMenu = undefined
+
+var mode = "addvar"
+
+var menuheight = 500
+var menuwidth = 500
 
 var svg = d3.select("svg"),
 	width = +svg.attr("width"),
@@ -119,10 +125,69 @@ function dragended(d) {
 	//refresh()
 }
 
+function openVariableMenu(d, x, y){
+	console.log(x + ", "+ y)
+    
+	d3.select('.vars_menu').remove();
+	
+	var menuw = 100, menuh = 0, margin = 0.1;
+	parentElement = d
+
+	d3.select('svg')
+		.append('g').attr('class', 'vars_menu')
+		.selectAll('tmp')
+		.data(currentVars).enter()
+		.append('g').attr('class', 'menu-entry')
+		.on('mouseover', function(){ 
+			d3.select(this).select('rect').attr("class","mouseover") })
+		.on('mouseout', function(){ 
+			d3.select(this).select('rect').attr("class","mouseout") })
+		.on('click', function(d) { addVariable(parentElement, x, y, d); d3.event.stopPropagation() })
+
+	d3.selectAll('.menu-entry')
+		.append('rect')
+		.attr('class', 'mouseout');
+
+	d3.selectAll('.menu-entry')
+		.append('text')
+		.text(function(d){ return d; })
+		.attr('class', 'menutext')
+		.each( function() {
+			// Determine width and height of menu here.
+			var b = this.getBBox()
+			if(b.width > menuw) menuw = b.width
+			if(b.height > menuh) menuh = b.height
+		})
+
+	margin *= menuw
+	menuw += 2*margin
+
+	d3.selectAll('.mouseout')
+		.attr('x', x)
+		.attr('y', function(d, i){ if(i+menuh<0) console.log("what"); return y + (i * menuh); })
+		.attr('width', menuw)
+		.attr('height', menuh)
+	
+	d3.selectAll(".menutext")
+		.attr('x', x)
+		.attr('y', function(d, i){ return y + (i * menuh); })
+		.attr('dy', menuh - margin / 2)
+		.attr('dx', margin)
+
+}
+
 function onClick(d){
 	if(mode == "addcut"){
 		addCut(d, d3.event.x-inpad/2, d3.event.y-inpad/2)
 		d3.event.stopPropagation()
+	}else if(mode == "addvar"){
+		//addVariable(d, d3.event.x, d3.event.y, getVariableFromMenu())
+		//openVariableMenu(d, d3.event.x, d3.event.y)
+		openVariableMenu(d, d3.event.x, d3.event.y)
+		d3.event.stopPropagation()
+		// Or, create the context menu, and then have the onclick on those do the thing
+	}else if(mode == "addq"){
+		addVariable(d, d3.event.x, d3.event.y, "Q")
 	}else if(mode == "delete"){
 		erase(d)
 		d3.event.stopPropagation()
@@ -130,9 +195,24 @@ function onClick(d){
 }
 
 function addCut(d,x,y){
-console.log(d)
+	//console.log(d)
 	//https://stackoverflow.com/questions/43140325/
 	var newCut = d3.hierarchy( { 'x':x,'y':y,'children':[] } )
+	console.log(newCut)
+	newCut.depth = d.depth + 1
+	newCut.parent = d
+	newCut.height = d.height - 1
+	if(!d.children) d.children=[]
+	d.children.push(newCut)
+	d.data.children.push(newCut.data)
+	//root.children.push(newCut)
+	refresh()
+}
+
+function addVariable(d,x,y,name){
+	//console.log(d)
+	//https://stackoverflow.com/questions/43140325/
+	var newCut = d3.hierarchy( { 'x':x,'y':y,'value':name } )
 	console.log(newCut)
 	newCut.depth = d.depth + 1
 	newCut.parent = d
