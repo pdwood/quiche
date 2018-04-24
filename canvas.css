@@ -6,7 +6,7 @@
 }
 
 .canvas text {
-	cursor: pointer;
+	cursor: default;
 }
 
 .canvas text.selected {
@@ -15,4 +15,21 @@
 
 .canvas rect.selected {
 	stroke:blue;
+}
+
+.mouseover {
+	fill: #f4f4f4;
+	cursor: pointer;
+}
+
+.mouseout {
+	fill: #c8c8c8;
+	stroke: white;
+	stroke-width: 1px;
+}
+
+.menutext {
+	fill: steelblue;
+	font-size: 13;
+	cursor: pointer;
 }
