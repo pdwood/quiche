@@ -3,9 +3,18 @@
         <link rel="stylesheet" type="text/css" href="menu.css">
 	</head>
 	<body>
-		<div id="mySidebar" class="sidebar">
+		<div id="constructSidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeBar()">&times;</a>
-            <a id=modeName>Construct Mode</a>
+            <a id=modeName onclick="modeChange(2)">Construct Mode</a>
+            <button id=green class="button" onclick="buttonClick('#4CAF50','white')">Select</button>
+            <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Insert Variable</button>
+            <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Insert Cut</button>
+            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Delete</button>
+            <button id=black class="button button5" onclick="buttonClick('#555555','white')">Self Destruct</button>
+		</div>
+        <div id="inferenceSidebar" class="sidebar" width="0">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeBar()">&times;</a>
+            <a id=modeName onclick="modeChange(1)">Inference Mode</a>
             <button id=green class="button" onclick="buttonClick('#4CAF50','white')">Select</button>
             <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Insert Variable</button>
             <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Insert Cut</button>
