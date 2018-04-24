@@ -7,20 +7,20 @@
 		<div id="constructSidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeBar()">&times;</a>
             <a id=modeName onclick="modeChange(2)">Construct Mode</a>
-            <button id=green class="button" onclick="buttonClick('#4CAF50','white')">Select</button>
-            <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Insert Variable</button>
-            <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Insert Cut</button>
-            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Delete</button>
-            <button id=black class="button button5" onclick="buttonClick('#555555','white')">Self Destruct</button>
+            <button id=green class="button" onclick="mode='select'">Select</button>
+            <button id=blue class="button button2" onclick="mode='addvar'">Insert Variable</button>
+            <button id=red class="button button3" onclick="mode='addcut'">Insert Cut</button>
+            <button id=gray class="button button4" onclick="mode='delete'">Delete</button>
+            <button id=black class="button button5" onclick="selfDestruct()">Self Destruct</button>
 		</div>
-        <div id="inferenceSidebar" class="sidebar" width="0">
+        <div id="inferenceSidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeBar()">&times;</a>
             <a id=modeName onclick="modeChange(1)">Inference Mode</a>
-            <button id=green class="button" onclick="buttonClick('#4CAF50','white')">Select</button>
-            <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Insert Variable</button>
-            <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Insert Cut</button>
-            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Delete</button>
-            <button id=black class="button button5" onclick="buttonClick('#555555','white')">Self Destruct</button>
+            <button id=green class="button" onclick="mode='select'">Select</button>
+            <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Double Cut</button>
+            <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Iteration</button>
+            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Insertion</button>
+            <button id=black class="button button5" onclick="buttonClick('#555555','white')">Erasure</button>
 		</div>
         <span style="font-size:30px;cursor:pointer;position:absolute;z-index:1;" onclick="openBar()">&#9776;</span>
 		<svg style="width:100%;height:100%;position:absolute;">

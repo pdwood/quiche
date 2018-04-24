@@ -13,6 +13,12 @@ function buttonClick(bgColor, aColor) {
 	} 
 }
 
+function selfDestruct(){
+    var elem = document.getElementsByTagName("HTML")[0];
+    var parent = elem.parentNode;
+    parent.removeChild(elem);
+}
+
 //Called when the menu schould switch to a different mode
 //This will close the current sidebar and open the correct one for the mode
 function modeChange(newMode){
