@@ -65,13 +65,3 @@
 .sidebar .button3 {background-color: #f44336;} /* Red */ 
 .sidebar .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
 .sidebar .button5 {background-color: #555555;} /* Black */
-
-.canvas {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-}
-
-.canvas text {
-	cursor: pointer;
-}
