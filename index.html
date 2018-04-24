@@ -23,7 +23,10 @@
             <button id=black class="button button5" onclick="buttonClick('#555555','white')">Self Destruct</button>
 		</div>
         <span style="font-size:30px;cursor:pointer;position:absolute;z-index:1;" onclick="openBar()">&#9776;</span>
-		<svg style="width:100%;height:100%;position:absolute;"></svg>
+		<svg style="width:100%;height:100%;position:absolute;">
+			<g id="cuts"></g>
+			<g id="vars"></g>
+		</svg>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src = "menu.js"></script>
 		<script src = "graph.js"></script>

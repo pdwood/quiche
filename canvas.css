@@ -5,8 +5,16 @@
 	position: absolute;
 }
 
-.canvas text {
+text.atom {
 	cursor: default;
+	fill: black;
+	font-size: 18;
+}
+
+rect.cut {
+	rx: 32;
+	ry: 32;
+	stroke: #000000;
 }
 
 .canvas text.selected {
