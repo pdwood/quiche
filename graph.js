@@ -85,13 +85,11 @@ function refresh () {
 }
 
 function dragstarted(d) {
-	if(mode != "select") return
 	d3.select(this).attr('xoffset', d3.event.x - d.data.x)
 	d3.select(this).attr('yoffset', d3.event.y - d.data.y)
 }
 
 function dragged(d) {
-	if(mode != "select") return
 	var deltax = d3.event.x - d3.select(this).attr('xoffset') - d.data.x
 	var deltay = d3.event.y - d3.select(this).attr('yoffset') - d.data.y
 
