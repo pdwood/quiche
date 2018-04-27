@@ -9,6 +9,7 @@
 	transition: 0.5s;
 	padding-top: 60px;
 	display: block;
+    border-radius: 8px;
 }
 
 .construct {
@@ -17,7 +18,7 @@
 }
 
 .inference {
-    background-color: #222;
+    background-color: #111;
     width: 0px;
 }
 
@@ -54,9 +55,6 @@
 
 
 .sidebar .button {
-	background-color: #4CAF50; /* Green */
-    border: 2px solid #4CAF50;
-	border: none;
 	color: white;
 	padding: 15px 32px;
 	text-align: center;
@@ -70,9 +68,11 @@
     white-space: nowrap;
     min-width: 200px;
     transition: 0.3s;
+    outline: none;
 }
 
-.sidebar .button2 {background-color: #008CBA;} /* Blue */
-.sidebar .button3 {background-color: #f44336;} /* Red */ 
-.sidebar .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
-.sidebar .button5 {background-color: #555555;} /* Black */
+.sidebar .bgreen {background-color: #4daf4a; border: 3px solid #4daf4a;} /* Green */
+.sidebar .bblue {background-color: #377eb8; border: 3px solid #377eb8;} /* Blue */
+.sidebar .bred {background-color: #e41a1c; border: 3px solid #e41a1c;} /* Red */ 
+.sidebar .bpurple {background-color: #984ea3; border: 3px solid #984ea3;} /* Purple */ 
+.sidebar .borange {background-color: #ff7f00; border: 3px solid #ff7f00;} /* Orange */

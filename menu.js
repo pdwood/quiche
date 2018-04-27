@@ -2,7 +2,7 @@ var menuMode = 1;
 const CONSTRUCT = 1;
 const INFERENCE = 2;
 
-
+//Test function for buttons
 function buttonClick(bgColor, aColor) {
 	var buttons = document.getElementById("constructSidebar").children
 	for (var i = 0;i < buttons.length; i++){
@@ -13,6 +13,7 @@ function buttonClick(bgColor, aColor) {
 	} 
 }
 
+//Dont call this
 function selfDestruct(){
     var elem = document.getElementsByTagName("HTML")[0];
     var parent = elem.parentNode;
@@ -21,10 +22,26 @@ function selfDestruct(){
 
 //Called when the menu schould switch to a different mode
 //This will close the current sidebar and open the correct one for the mode
-function modeChange(newMode){
+function menuModeChange(newMode){
     this.menuMode = newMode;
     closeBar();
+    toolModeChange('select');
     openBar();
+}
+
+//Change the cursor mode when a button is clicked
+function toolModeChange(newMode){
+    this.mode = newMode;
+    buttons = document.getElementsByClassName("button");
+    for (var i = 0;i < buttons.length; i++){
+        if (mode == buttons[i].id){
+            buttons[i].style.backgroundColor = 'white';
+            buttons[i].style.color = 'black';
+        }else{
+            buttons[i].style.backgroundColor = '';
+            buttons[i].style.color = '';
+        }
+    }
 }
 
 function openBar() {

@@ -6,21 +6,21 @@
 	<body>
 		<div id="constructSidebar" class="sidebar construct">
             <a href="javascript:void(0)" class="closebtn" onclick="closeBar()">&times;</a>
-            <a id=modeName onclick="modeChange(2)">Construct Mode</a>
-            <button id=green class="button" onclick="mode='select'">Select</button>
-            <button id=blue class="button button2" onclick="mode='addvar'">Insert Variable</button>
-            <button id=red class="button button3" onclick="mode='addcut'">Insert Cut</button>
-            <button id=gray class="button button4" onclick="mode='delete'">Delete</button>
+            <a id=modeName onclick="menuModeChange(2)">Construct Mode</a>
+            <button id=select class="button borange" onclick="toolModeChange('select')">Select</button>
+            <button id=addvar class="button bgreen" onclick="toolModeChange('addvar')">Insert Variable</button>
+            <button id=addcut class="button bblue" onclick="toolModeChange('addcut')">Insert Cut</button>
+            <button id=delete class="button bred" onclick="toolModeChange('delete')">Delete</button>
             <!--button id=black class="button button5" onclick="selfDestruct()">Self Destruct</button-->
 		</div>
         <div id="inferenceSidebar" class="sidebar inference">
             <a href="javascript:void(0)" class="closebtn" onclick="closeBar()">&times;</a>
-            <a id=modeName onclick="modeChange(1)">Inference Mode</a>
-            <button id=green class="button" onclick="mode='select'">Select</button>
-            <button id=blue class="button button2" onclick="buttonClick('#008CBA','white')">Double Cut</button>
-            <button id=red class="button button3" onclick="buttonClick('#f44336','white')">Iteration</button>
-            <button id=gray class="button button4" onclick="buttonClick('#e7e7e7','black')">Insertion</button>
-            <button id=black class="button button5" onclick="buttonClick('#555555','white')">Erasure</button>
+            <a id=modeName onclick="menuModeChange(1)">Inference Mode</a>
+            <button id=select class="button borange" onclick="toolModeChange('select')">Select</button>
+            <button id=doublecut class="button bpurple" onclick="toolModeChange('doublecut')">Double Cut</button>
+            <button id=iteration class="button bgreen" onclick="toolModeChange('iteration')">Iteration</button>
+            <button id=insertion class="button bblue" onclick="toolModeChange('insertion')">Insertion</button>
+            <button id=erasure class="button bred" onclick="toolModeChange('erasure')">Erasure</button>
 		</div>
         <span style="font-size:30px;cursor:pointer;position:absolute;z-index:1;" onclick="openBar()">&#9776;</span>
 		<svg style="width:100%;height:100%;position:absolute;">
