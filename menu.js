@@ -31,6 +31,7 @@ function menuModeChange(newMode){
 
 //Change the cursor mode when a button is clicked
 function toolModeChange(newMode){
+	d3.select('.vars_menu').remove();
     this.mode = newMode;
     buttons = document.getElementsByClassName("button");
     for (var i = 0;i < buttons.length; i++){

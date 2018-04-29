@@ -4,15 +4,14 @@
 var currentVars = ["P","Q"]
 var selectedForMenu = undefined
 
-var mode = "addvar"
+var mode = "select"
 
 var menuheight = 500
 var menuwidth = 500
 
 var svg = d3.select("svg"),
 	width = +svg.attr("width"),
-	height = +svg.attr("height"),
-	radius = 32;
+	height = +svg.attr("height")
 
 var data = { 'children': [
 	{'x':60,'y':60, "children" : [
@@ -26,7 +25,6 @@ var data = { 'children': [
 
 var inpad = 64
 var outpad = 10
-//var text
 
 function getw(d) {
 	if(d.data.children === undefined) return d.data.value.length * 11
@@ -50,10 +48,9 @@ function gety(d){
 var root = d3.hierarchy(data)
 
 function refresh () {
-	cuts = svg.select("g#cuts").selectAll("rect.cut").data(root.descendants().filter( (d) => d!=root && !d.data.value ))
+	cuts = svg.select("g#cuts").selectAll("rect").data(root.descendants().filter( (d) => d!=root && !d.data.value ))
 	vars = svg.select("g#vars").selectAll("text").data(root.descendants().filter( (d) => !!d.data.value ))
 
-	cuts.sort(function(x,y) {return x.depth > y.depth})
 
 	cuts.enter().append('rect')
 		.attr("class", 'cut')
@@ -62,6 +59,8 @@ function refresh () {
 			.on("start", dragstarted)
 			.on("drag", dragged)
 			.on("end", dragended));
+
+	cuts.sort(function(x,y) {return x.depth > y.depth})
 		
 	vars.enter().append('text')
 		.call(d3.drag()
@@ -138,9 +137,33 @@ function openVariableMenu(d, x, y){
 	margin *= menuw
 	menuw += 2*margin
 
+	var addnew = d3.select('.vars_menu')
+		.append('g').attr('class', 'menu-entry')
+		.on('mouseover', function(){ 
+			d3.select(this).select('rect').attr("class","mouseover") })
+		.on('mouseout', function(){ 
+			d3.select(this).select('rect').attr("class","mouseout") })
+		.on('click', function(d) {
+				d3.select('.vars_menu').remove();
+				var newvar = prompt("Add new variable...");
+				if( ! (newvar in currentVars) ){
+					console.log("Adding?")
+					currentVars.push(newvar)
+				}
+				addVariable(parentElement, x, y, newvar);
+				d3.event.stopPropagation() })
+
+	addnew.append('rect')
+		.attr('class', 'mouseout')
+
+	addnew.append('text')
+		.text("Add new...")
+		.attr('class', 'menutext')
+
+
 	d3.selectAll('.mouseout')
 		.attr('x', x)
-		.attr('y', function(d, i){ if(i+menuh<0) console.log("what"); return y + (i * menuh); })
+		.attr('y', function(d, i){ return y + (i * menuh); })
 		.attr('width', menuw)
 		.attr('height', menuh)
 	
@@ -154,19 +177,16 @@ function openVariableMenu(d, x, y){
 
 function onClick(d){
 	d3.event.preventDefault()
-	if(mode == "addcut"){
-		addCut(d, d3.event.x-inpad/2, d3.event.y-inpad/2)
-		d3.event.stopPropagation()
-	}else if(mode == "addvar"){
-		//addVariable(d, d3.event.x, d3.event.y, getVariableFromMenu())
-		//openVariableMenu(d, d3.event.x, d3.event.y)
-		openVariableMenu(d, d3.event.x, d3.event.y)
-		d3.event.stopPropagation()
-		// Or, create the context menu, and then have the onclick on those do the thing
-	}else if(mode == "addq"){
-		addVariable(d, d3.event.x, d3.event.y, "Q")
-	}else if(mode == "delete"){
+	if(mode == "delete"){
+		console.log(d)
 		erase(d)
+		d3.event.stopPropagation()
+	}else if(! d.data.value){
+		if(mode == "addcut"){
+			addCut(d, d3.event.x-inpad/2, d3.event.y-inpad/2)
+		}else if(mode == "addvar"){
+			openVariableMenu(d, d3.event.x, d3.event.y)
+		}
 		d3.event.stopPropagation()
 	}
 }
@@ -183,6 +203,7 @@ function addCut(d,x,y){
 	d.children.push(newCut)
 	d.data.children.push(newCut.data)
 	//root.children.push(newCut)
+	refresh()
 	refresh()
 }
 
@@ -203,7 +224,8 @@ function addVariable(d,x,y,name){
 }
 
 function erase(d){
-	d3.remove(d)
+	d.parent.children = d.parent.children.filter( (a) => a!=d )
+	//something = something.filter( function(a){ return !(a in d.descendants()) } )
 	refresh()
 }
 
