@@ -76,3 +76,4 @@
 .sidebar .bred {background-color: #e41a1c; border: 3px solid #e41a1c;} /* Red */ 
 .sidebar .bpurple {background-color: #984ea3; border: 3px solid #984ea3;} /* Purple */ 
 .sidebar .borange {background-color: #ff7f00; border: 3px solid #ff7f00;} /* Orange */
+.sidebar .bhover:hover {background-color: white; color: black;} /* Green */

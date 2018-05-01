@@ -230,11 +230,14 @@ function erase(d){
 }
 
 function saveFile(){
-    var a = document.createElement("a");
-    var file = new Blob([JSON.stringify(data)], {type: "application/json"});
-    a.href = URL.createObjectURL(file);
-    a.download = prompt("Enter filename:")+".json"
-    a.click();
+    var filename = prompt("Enter filename:")
+    if(filename){
+        var a = document.createElement("a");
+        var file = new Blob([JSON.stringify(data)], {type: "application/json"});
+        a.href = URL.createObjectURL(file);
+        a.download = filename+".json"
+        a.click();
+    }
 }
 
 d3.select("svg").on("click", function(){console.log("root clicked");onClick(root)})
