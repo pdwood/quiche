@@ -13,15 +13,16 @@ var svg = d3.select("svg"),
 	width = +svg.attr("width"),
 	height = +svg.attr("height")
 
-var data = { 'children': [
-	{'x':60,'y':60, "children" : [
+
+var data = { 'children': [] }
+/*	{'x':60,'y':60, "children" : [
 		{"value" : "P", 'x':220,'y':220},
 		{'x':60,'y':60, "children" : [
 			{'x':60,'y':60, "children" : [ {"value":"P",'x':60,'y':60} ]},
 			{'x':120,'y':60, "children" : [ {"value":"Q",'x':80,'y':80} ]}
 		]}
 	]}
-]}
+]}*/
 
 var inpad = 64
 var outpad = 10
@@ -54,7 +55,7 @@ function refresh () {
 
 	cuts.enter().append('rect')
 		.attr("class", 'cut')
-		.on("click",onClick)
+		.on("click",onClickCut)
 		.call(d3.drag()
 			.on("start", dragstarted)
 			.on("drag", dragged)
@@ -63,6 +64,13 @@ function refresh () {
 	cuts.sort(function(x,y) {return x.depth > y.depth})
 		
 	vars.enter().append('text')
+		.on("click",onClickVar)
+		.each(function(d) {
+			// Populate vars menu
+			console.log(d.data.value)
+			console.log(d.data.value in currentVars)
+			if( currentVars.indexOf(d.data.value) < 0 ) currentVars.push(d.data.value)
+		})
 		.call(d3.drag()
 			.on("start", dragstarted)
 			.on("drag", dragged)
@@ -101,7 +109,6 @@ function dragended(d) {
 }
 
 function openVariableMenu(d, x, y){
-	console.log(x + ", "+ y)
     
 	d3.select('.vars_menu').remove();
 	
@@ -146,8 +153,7 @@ function openVariableMenu(d, x, y){
 		.on('click', function(d) {
 				d3.select('.vars_menu').remove();
 				var newvar = prompt("Add new variable...");
-				if( ! (newvar in currentVars) ){
-					console.log("Adding?")
+				if(currentVars.indexOf(d.data.value) < 0){
 					currentVars.push(newvar)
 				}
 				addVariable(parentElement, x, y, newvar);
@@ -175,27 +181,29 @@ function openVariableMenu(d, x, y){
 
 }
 
-function onClick(d){
+function onClickCut(d){
 	d3.event.preventDefault()
-	if(mode == "delete"){
-		console.log(d)
+	if(mode == "delete" && d != root){
 		erase(d)
 		d3.event.stopPropagation()
-	}else if(! d.data.value){
-		if(mode == "addcut"){
-			addCut(d, d3.event.x-inpad/2, d3.event.y-inpad/2)
-		}else if(mode == "addvar"){
-			openVariableMenu(d, d3.event.x, d3.event.y)
-		}
+	}else if(mode == "addcut"){
+		addCut(d, d3.event.x-inpad/2, d3.event.y-inpad/2)
+	}else if(mode == "addvar"){
+		openVariableMenu(d, d3.event.x, d3.event.y)
+	}
+	d3.event.stopPropagation()
+}
+
+function onClickVar(d){
+	if(mode == "delete"){
+		erase(d)
 		d3.event.stopPropagation()
 	}
 }
 
 function addCut(d,x,y){
-	//console.log(d)
 	//https://stackoverflow.com/questions/43140325/
 	var newCut = d3.hierarchy( { 'x':x,'y':y,'children':[] } )
-	console.log(newCut)
 	newCut.depth = d.depth + 1
 	newCut.parent = d
 	newCut.height = d.height - 1
@@ -208,24 +216,20 @@ function addCut(d,x,y){
 }
 
 function addVariable(d,x,y,name){
-	//console.log(d)
-	//https://stackoverflow.com/questions/43140325/
-	var newCut = d3.hierarchy( { 'x':x,'y':y,'value':name } )
-	console.log(newCut)
-	newCut.depth = d.depth + 1
-	newCut.parent = d
-	newCut.height = d.height - 1
+	var newVar = d3.hierarchy( { 'x':x,'y':y,'value':name } )
+	newVar.depth = d.depth + 1
+	newVar.parent = d
+	newVar.height = d.height - 1
 	if(!d.children) d.children=[]
-	d.children.push(newCut)
-	d.data.children.push(newCut.data)
-	//root.children.push(newCut)
+	d.children.push(newVar)
+	d.data.children.push(newVar.data)
 	refresh()
 	refresh()
 }
 
 function erase(d){
 	d.parent.children = d.parent.children.filter( (a) => a!=d )
-	//something = something.filter( function(a){ return !(a in d.descendants()) } )
+	d.parent.data.children = d.parent.data.children.filter ( (a) => a!=d.data )
 	refresh()
 }
 
@@ -237,10 +241,30 @@ function saveFile(){
         a.href = URL.createObjectURL(file);
         a.download = filename+".json"
         a.click();
-    }
+	}
 }
 
-d3.select("svg").on("click", function(){console.log("root clicked");onClick(root)})
+function loadFile(){
+	document.getElementById("openfile").click()
+}
+
+
+//https://bl.ocks.org/cjrd/6863459
+d3.select("#openfile").on("change", function(){
+		var thefile = this.files[0]
+		var reader = new window.FileReader()
+		reader.onload = function(){
+			try{
+				data = JSON.parse(reader.result)
+				root = d3.hierarchy(data)
+				refresh()
+				refresh()
+			}catch(err){ alert("Error parsing upload file: "+err.message) }
+		}
+		reader.readAsText(thefile)
+	})
+
+d3.select("svg").on("click", function(){onClickCut(root)})
 
 refresh()
 refresh() // idk why i have to do it twice
