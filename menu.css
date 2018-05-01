@@ -30,6 +30,17 @@
 	margin-left: 50px;
 }
 
+.sidebar hr {
+    border-color: #818181; 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-style: inset;
+    border-width: 1px;
+}
+
 .sidebar a {
 	padding: 8px 8px 8px 32px;
 	text-decoration: none;
@@ -76,5 +87,6 @@
 .sidebar .bred {background-color: #e41a1c; border: 3px solid #e41a1c;} /* Red */ 
 .sidebar .bpurple {background-color: #984ea3; border: 3px solid #984ea3;} /* Purple */ 
 .sidebar .borange {background-color: #ff7f00; border: 3px solid #ff7f00;} /* Orange */
+.sidebar .byellow {background-color: #ffff33; border: 3px solid #ffff33; color:black;} /* Yellow */
 .sidebar .bgray {background-color: gray; border: 3px solid gray;} /* Gray */
-.sidebar .bhover:hover {background-color: white; color: black;} /* Green */
+.sidebar .bhover:hover {background-color: white; color: black;} /* White on hover */
